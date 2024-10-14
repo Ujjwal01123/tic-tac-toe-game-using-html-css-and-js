@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgba(207, 226, 226, 0.831);
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.hide {
+    visibility: hidden;
+}
+
+#gover {
+    color: rgb(90, 84, 84);
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%);
+   
+}
+
+#container {
+    height: 330px;
+    width: 330px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#container .box {
+    height: 102px;
+    width: 102px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: rgb(189, 51, 51);
+    background-color: white;
+    font-size: 2.5rem;
+    box-shadow: 0 0 20px rgba(105, 132, 150, 0.918);
+
+    &:hover {
+        background-color: rgba(243, 239, 239, 0.702);
+    }
+}
+
+#reset {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px;
+    width: 140px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+        transition: 0.5s ease-in-out all;
+        background-color: rgba(145, 119, 119, 0.518);
+    }
+}
+
+.newgame {
+    padding: 12px;
+    margin-top: 5px;
+    background-color: rgb(114, 102, 102);
+    font-weight: 700;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-left: 35px;
+    color: rgb(207, 201, 201);
+
+    &:hover {
+        /* transition: 0.5s all; */
+        background-color: rgb(78, 69, 69);
+    }
+}
+
+#h2 {
+    margin-left: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

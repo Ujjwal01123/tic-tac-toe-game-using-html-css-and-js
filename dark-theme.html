@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(15, 21, 21);
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.hide {
+    visibility: hidden;
+}
+
+#gover {
+    color: rgb(189, 51, 51);
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%);
+   
+}
+
+#container {
+    height: 330px;
+    width: 330px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+#container .box {
+    height: 102px;
+    width: 102px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: rgb(189, 51, 51);
+    background-color: rgba(19, 57, 41, 0.608);
+    font-size: 2.5rem;
+    box-shadow: 3px 6px 6px rgb(6, 7, 7),
+                -2px -2px 6px rgb(13, 10, 10);
+
+    &:hover {
+        background:none;
+    }
+}
+
+#reset {
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: 550;
+    padding: 7px;
+    width: 140px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: rgb(189, 51, 51);
+    background-color: rgba(19, 57, 41, 0.608);
+    box-shadow: 3px 6px 6px rgb(6, 7, 7);
+    &:hover {
+        transition: 0.5s ease-in-out all;
+        background-color: rgba(10, 31, 22, 0.608);
+        
+    }
+}
+
+.newgame {
+    padding: 12px;
+    margin-top: 5px;
+    background-color: rgba(19, 57, 41, 0.608);
+    box-shadow: 3px 6px 6px rgb(6, 7, 7);
+    font-weight: 700;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-left: 35px;
+    color: rgb(189, 51, 51);
+
+    &:hover {
+        /* transition: 0.5s all; */
+        background-color: rgba(10, 31, 22, 0.608);
+    }
+}
+
+#h2 {
+    margin-left: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+nav h1{
+    font-size: 32px;
+    color: rgb(189, 51, 51);
+    margin-bottom: 20px;
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+
+<body>
+    <nav><h1 id="h1">Tic Tac Toe</h1></nav>
+    <main>
+        <div id="gover" class="hide">
+            <h1>Game Over</h1>
+            <h2 id="h2"></h2>
+            <button id="n-game" class="newgame">New Game</button>
+        </div>
+        <div id="container">
+            <button class="box"></button>
+            <button class="box"></button>
+            <button class="box"></button>
+            <button class="box"></button>
+            <button class="box"></button>
+            <button class="box"></button>
+            <button class="box"></button>
+            <button class="box"></button>
+            <button class="box"></button>
+        </div>
+        <button id="reset">Reset</button>
+    </main>
+
+    <script>
+        let container = document.getElementById("container");
+let newgame = document.getElementById("n-game");
+let boxes = document.querySelectorAll(".box");
+let reset = document.getElementById("reset");
+let gover = document.getElementById("gover");
+let win = document.getElementById("h2");
+let h1=document.getElementById("h1");
+let player1 = true;
+//winning patterns.....
+const winPatterns = [
+    [0, 1, 2],
+    [0, 3, 6],
+    [0, 4, 8],
+    [1, 4, 7],
+    [2, 5, 8],
+    [2, 4, 6],
+    [3, 4, 5],
+    [6, 7, 8],
+];
+boxes.forEach((box) => {
+    box.addEventListener("click", () => {
+        if (player1) {
+            box.innerText = "O";
+            player1 = false;
+        }
+        else {
+            box.innerHTML = "&#10008;";
+            player1 = true;
+        }
+        box.disabled = "true";
+        check();
+    });
+});
+//checking patterns...
+const check = () => {
+    for (let pattern of winPatterns) {
+        let p1 = boxes[pattern[0]].innerText;
+        let p2 = boxes[pattern[1]].innerText;
+        let p3 = boxes[pattern[2]].innerText;
+        if (p1 != "" && p2 != "" && p3 != "") {
+            if (p1 === p2 && p2 === p3) {
+                console.log("winner is ", p1);
+                boxes.forEach((box) => {
+                    box.disabled = true;
+                })
+                win.innerHTML = `Winner is ${p1}   <span id="rot">&#128681;</span>`;
+                setTimeout("wait()", 300);
+            }
+        }
+    }
+}
+//wait....
+function wait() {
+    container.classList.add("hide");
+    h1.classList.add("hide");
+    gover.classList.remove("hide");
+    reset.classList.add("hide");
+    speak();
+}
+//reset button....
+let rset = () => {
+    player1 = true;
+    boxes.forEach((box) => {
+        box.disabled = false;
+        box.innerText = "";
+    })
+    rg();
+}
+//new game button....
+let ngame = () => {
+    player1 = true;
+    gover.classList.add("hide");
+    container.classList.remove("hide");
+    reset.classList.remove("hide");
+    h1.classList.remove("hide");
+
+    boxes.forEach((box) => {
+        box.disabled = false;
+        box.innerText = "";
+    })
+    ng();
+}
+//event listener...
+reset.addEventListener("click", rset);
+newgame.addEventListener("click", ngame);
+
+//speak
+function speak(){
+            const text="Game over";
+        const Utterance=new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(Utterance);
+        }
+function ng(){
+            const text="New Game started";
+        const Utterance=new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(Utterance);
+        }
+function rg(){
+            const text="Game is reset";
+        const Utterance=new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(Utterance);
+        }
+    </script>
+</body>
+
+</html>
